@@ -1,7 +1,7 @@
 %define tarname	TaskCoach
 %define name	taskcoach
-%define version 1.3.7
-%define release %mkrel 1
+%define version 1.3.15
+%define release 1
 
 Summary:	Your friendly task manager
 Name:		%{name}
@@ -30,14 +30,16 @@ effort tracking, categories, and notes.
 
 %install
 %__rm -rf %{buildroot}
-PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot} --record=FILE_LIST
-sed -si s,taskcoach.py,taskcoach, FILE_LIST
+PYTHONDONTWRITEBYTECODE= %__python setup.py install --root=%{buildroot}
+rm -rf %{buildroot}%{py_sitedir}/buildlib*
 mv %{buildroot}%{_bindir}/taskcoach.py %{buildroot}%{_bindir}/taskcoach
 
 %clean
 %__rm -rf %{buildroot}
 
-%files -f FILE_LIST
+%files
 %defattr(-,root,root)
 %doc CHANGES.txt COPYRIGHT.txt HACKING.txt LICENSE.txt PUBLICITY.txt README.txt
-
+%_bindir/taskcoach
+%py_sitedir/TaskCoach*
+%py_sitedir/taskcoach*
