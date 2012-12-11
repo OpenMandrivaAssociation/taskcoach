@@ -43,3 +43,34 @@ mv %{buildroot}%{_bindir}/taskcoach.py %{buildroot}%{_bindir}/taskcoach
 %_bindir/taskcoach
 %py_sitedir/TaskCoach*
 %py_sitedir/taskcoach*
+
+
+%changelog
+* Wed Sep 05 2012 Lev Givon <lev@mandriva.org> 1.3.18-1
++ Revision: 816408
+- Update to 1.3.18.
+
+* Tue Jun 05 2012 Lev Givon <lev@mandriva.org> 1.3.15-1
++ Revision: 802789
+- Update to 1.3.15.
+
+* Tue Feb 21 2012 Lev Givon <lev@mandriva.org> 1.3.7-1
++ Revision: 778343
+- Update to 1.3.7.
+
+* Wed Jan 25 2012 Lev Givon <lev@mandriva.org> 1.3.6-1
++ Revision: 768115
+- Update to 1.3.6.
+
+* Tue Jan 10 2012 Lev Givon <lev@mandriva.org> 1.3.4-1
++ Revision: 759446
+- Update to 1.3.4.
+
+* Fri Dec 09 2011 Lev Givon <lev@mandriva.org> 1.3.2-1
++ Revision: 739473
+- Update to 1.3.2.
+
+* Mon Nov 28 2011 Lev Givon <lev@mandriva.org> 1.3.1-1
++ Revision: 734767
+- imported package taskcoach
+
