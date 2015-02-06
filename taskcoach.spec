@@ -1,7 +1,7 @@
 %define tarname	TaskCoach
 %define name	taskcoach
 %define version 1.3.18
-%define release 1
+%define release 2
 
 Summary:	Your friendly task manager
 Name:		%{name}
