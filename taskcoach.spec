@@ -9,6 +9,8 @@ Patch1:		taskcoach_gtk3_v3.patch
 License:	GPLv3+
 Group:		Development/Other
 Url:		http://www.taskcoach.org/
+BuildRequires: python2
+BuildRequures: pkgconfig(setuptools)
 Requires:	python2
 Requires:	wxPythonGTK >= 2.8.9.2
 BuildArch:	noarch
