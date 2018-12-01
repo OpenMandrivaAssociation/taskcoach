@@ -1,0 +1,92 @@
+diff -up taskcoachlib/gui/printer.py.gtk3 taskcoachlib/gui/printer.py
+--- a/taskcoachlib/gui/printer.py.gtk3	2016-01-31 09:04:37.000000000 -0500
++++ a/taskcoachlib/gui/printer.py	2017-11-17 21:17:34.133789635 -0500
+@@ -25,8 +25,9 @@ import wx
+ # Prepare for printing. On Jolicloud, printing crashes unless we do this:
+ if operating_system.isGTK():
+     try:
+-        import gtk  # pylint: disable=F0401
+-        gtk.remove_log_handlers()
++        if 'gtk3' not in wx.PlatformInfo:
++            import gtk  # pylint: disable=F0401
++            gtk.remove_log_handlers()
+     except ImportError:
+         pass
+ 
+diff -up taskcoachlib/notify/notifier_libnotify.py.gtk3 taskcoachlib/notify/notifier_libnotify.py
+--- a/taskcoachlib/notify/notifier_libnotify.py.gtk3	2016-01-31 09:04:42.000000000 -0500
++++ a/taskcoachlib/notify/notifier_libnotify.py	2017-11-17 21:19:32.317347170 -0500
+@@ -27,11 +27,19 @@ class LibnotifyNotifier(AbstractNotifier
+         super(LibnotifyNotifier, self).__init__()
+ 
+         try:
+-            import pynotify
++            if 'gtk3' in wx.PlatformInfo:
++                import gi
++                gi.require_version('Notify', '0.7')
++                import gi.repository.Notify
++            else:
++                import pynotify
+         except ImportError:
+             self.__notify = None
+         else:
+-            self.__notify = pynotify
++            if 'gtk3' in wx.PlatformInfo:
++                self.__notify = gi.repository.Notify
++            else:
++                self.__notify = pynotify
+             self.__notify.init(data.name)
+ 
+     def getName(self):
+@@ -46,9 +54,14 @@ class LibnotifyNotifier(AbstractNotifier
+         os.close(fd)
+         bitmap.SaveFile(filename, wx.BITMAP_TYPE_PNG)
+         try:
+-            n = self.__notify.Notification(title.encode('UTF-8'),
+-                                           summary.encode('UTF-8'),
+-                                           filename)
++            if 'gtk3' in wx.PlatformInfo:
++                n = self.__notify.Notification.new(title.encode('UTF-8'),
++                                                   summary.encode('UTF-8'),
++                                                   filename)
++            else:
++                n = self.__notify.Notification(title.encode('UTF-8'),
++                                               summary.encode('UTF-8'),
++                                               filename)
+             n.show()
+         finally:
+             os.remove(filename)
+diff -up taskcoachlib/render.py.gtk3 taskcoachlib/render.py
+--- a/taskcoachlib/render.py.gtk3	2016-01-31 09:04:42.000000000 -0500
++++ a/taskcoachlib/render.py	2017-11-17 21:17:34.134789640 -0500
+@@ -29,6 +29,7 @@ import datetime
+ import codecs
+ import locale
+ import re
++import wx
+ 
+ # pylint: disable=W0621
+ 
+@@ -225,7 +226,8 @@ elif operating_system.isMac():
+ elif desktop.get_desktop() == 'KDE4':
+     try:
+         # Import gtk first because when it's imported indirectly it generates a RuntimeWarning.
+-        import gtk
++        if 'gtk3' not in wx.PlatformInfo:
++            import gtk
+         from PyKDE4.kdecore import KGlobal, KLocale
+         from PyQt4.QtCore import QTime, QDate
+     except ImportError:
+diff -up taskcoachlib/thirdparty/smartdatetimectrl.py.gtk3 taskcoachlib/thirdparty/smartdatetimectrl.py
+--- a/taskcoachlib/thirdparty/smartdatetimectrl.py.gtk3	2014-08-03 09:51:09.000000000 -0400
++++ a/taskcoachlib/thirdparty/smartdatetimectrl.py	2017-11-17 21:17:34.135789645 -0500
+@@ -902,7 +902,8 @@ class TimeEntry(Entry):
+         elif platform.system() == 'Linux':
+             try:
+                 # Without this gtk import there's a warning if you try to import wx.lib.masked
+-                import gtk
++                if 'gtk3' not in wx.PlatformInfo:
++                    import gtk
+                 from PyKDE4.kdecore import KLocale, KGlobal
+                 from PyQt4.QtCore import QTime
+             except ImportError:
