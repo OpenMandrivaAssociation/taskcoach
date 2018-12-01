@@ -10,7 +10,7 @@ License:	GPLv3+
 Group:		Development/Other
 Url:		http://www.taskcoach.org/
 BuildRequires: python2
-BuildRequires: pkgconfig(setuptools)
+BuildRequires: pythonegg(setuptools)
 Requires:	python2
 Requires:	wxPythonGTK >= 2.8.9.2
 BuildArch:	noarch
