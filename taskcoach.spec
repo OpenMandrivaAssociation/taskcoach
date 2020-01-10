@@ -25,7 +25,7 @@ effort tracking, categories, and notes.
 
 %prep
 %setup -q -n %{tarname}-%{version}
-%apply_patches
+%autopatch -p1
 %install
 PYTHONDONTWRITEBYTECODE= %__python2 setup.py install --root=%{buildroot}
 rm -rf %{buildroot}%{py2_puresitedir}/buildlib*
