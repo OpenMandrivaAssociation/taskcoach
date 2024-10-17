@@ -8,7 +8,7 @@ Source0:	http://downloads.sourceforge.net/%{name}/%{tarname}-%{version}.tar.gz
 Patch1:		taskcoach_gtk3_v3.patch
 License:	GPLv3+
 Group:		Development/Other
-Url:		http://www.taskcoach.org/
+Url:		https://www.taskcoach.org/
 BuildRequires: python2
 BuildRequires: pythonegg(setuptools)
 Requires:	python2
