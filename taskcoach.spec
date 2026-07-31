@@ -2,10 +2,10 @@
 
 Summary:	Your friendly task manager
 Name:		taskcoach
-Version:	1.4.3
+Version:	1.4.6
 Release:	1
 Source0:	http://downloads.sourceforge.net/%{name}/%{tarname}-%{version}.tar.gz
-Patch1:		taskcoach_gtk3_v3.patch
+# dropped (no longer applies): Patch1:		taskcoach_gtk3_v3.patch
 License:	GPLv3+
 Group:		Development/Other
 Url:		https://www.taskcoach.org/
@@ -24,7 +24,7 @@ is designed to deal with composite tasks. In addition, it offers
 effort tracking, categories, and notes. 
 
 %prep
-%setup -q -n %{tarname}-%{version}
+%setup -q -n TaskCoach-1.4.6
 %autopatch -p1
 %install
 PYTHONDONTWRITEBYTECODE= %__python2 setup.py install --root=%{buildroot}
